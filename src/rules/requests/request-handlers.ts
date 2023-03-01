@@ -662,6 +662,12 @@ export class PassThroughHandler extends PassThroughHandlerDefinition {
             else family = 4;
         }
 
+        // Overwrite family in case localAddress is set
+        if (this.localAddress) {
+            if (net.isIPv6(this.localAddress)) family = 6;
+            else family = 4;
+        }
+
         // Remote clients might configure a passthrough rule with a parameter reference for the proxy,
         // delegating proxy config to the admin server. That's fine initially, but you can't actually
         // handle a request in that case - make sure our proxyConfig is always dereferenced before use.
@@ -725,6 +731,7 @@ export class PassThroughHandler extends PassThroughHandlerDefinition {
                 method,
                 hostname,
                 port,
+                localAddress: this.localAddress,
                 family,
                 path,
                 headers: shouldTryH2Upstream

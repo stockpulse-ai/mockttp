@@ -541,6 +541,13 @@ export interface PassThroughHandlerOptions {
     lookupOptions?: PassThroughLookupOptions;
 
     /**
+     * Specify which interface will be used for outgoing connections.
+     * This is useful for multi-home'd machines where you want all traffic to
+     * appear outgoing from one particular interface.
+     */
+    localAddress?: string;
+
+    /**
      * Whether to simulate connection errors back to the client.
      *
      * By default (in most cases - see below) when an upstream request fails
@@ -822,6 +829,8 @@ export class PassThroughHandlerDefinition extends Serializable implements Reques
 
     public readonly proxyConfig?: ProxyConfig;
 
+    public readonly localAddress?: string;
+
     public readonly lookupOptions?: PassThroughLookupOptions;
 
     public readonly simulateConnectionErrors: boolean;
@@ -857,6 +866,7 @@ export class PassThroughHandlerDefinition extends Serializable implements Reques
 
         this.lookupOptions = options.lookupOptions;
         this.proxyConfig = options.proxyConfig;
+        this.localAddress = options.localAddress;
         this.simulateConnectionErrors = !!options.simulateConnectionErrors;
 
         this.clientCertificateHostMap = options.clientCertificateHostMap || {};
