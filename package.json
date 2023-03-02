@@ -72,7 +72,7 @@
     "admin": "TS_NODE_FILES=true ts-node -e 'require(\"./src/main\").getAdminServer({ debug: true }).start()'",
     "with-admin": "TS_NODE_FILES=true ts-node ./src/admin/admin-bin.ts -c ",
     "ci-tests": "npm run test && catch-uncommitted",
-    "prepack": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
